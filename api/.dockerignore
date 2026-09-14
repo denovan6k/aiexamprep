@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+.venv
+venv
+uploads/
+tests/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.git/
+.gitignore
+uv.lock

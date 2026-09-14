@@ -1,0 +1,16 @@
+Hi {{ recipient_name }},
+
+Welcome to {{ brand.name }}. Your account is ready — turn the notes you already have into practice that moves you forward.
+
+Verify your email: {{ verify_url }}
+
+Next steps:
+1. Upload lecture notes or past papers
+2. Pick a Professor Agent for exam tone
+3. Generate quizzes and flashcards from your material
+
+You can also verify later from account settings. We're glad you're here.
+
+— {{ brand.name }}
+Open Knorvex: {{ app_url }}
+Questions? {{ support_email }}

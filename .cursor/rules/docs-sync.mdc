@@ -1,0 +1,26 @@
+---
+description: Keep documentation/ Docusaurus docs in sync with product and API changes
+alwaysApply: true
+---
+
+# Docs sync (Knorvex)
+
+Published docs live in `documentation/`. Root `docs/` is internal planning only.
+
+## Required updates
+
+1. **User-facing feature or UX change** → update the matching page under `documentation/docs/guides/` (or add a new page + `sidebars.ts` entry).
+2. **API, infra, setup, deploy, or media change** → update `documentation/docs/developers/`.
+3. **New top-level product area** → add a sidebar entry and stub/page in the **same** session or PR as the feature.
+4. Use the product name **Knorvex** only (never StudSync or Prepwise in `documentation/`).
+5. Match calm, material-first voice from the product marketing copy.
+
+## Do not
+
+- Leave tutorial/filler Docusaurus content when adding pages.
+- Treat root `docs/` as the published site.
+- Skip docs updates because “it’s a small change” if users or contributors would notice the behavior.
+
+## Verify
+
+After docs edits: `cd documentation && pnpm build` (or `pnpm start`) when practical.

@@ -1,0 +1,35 @@
+{% macro eyebrow(label) -%}
+<p style="margin:0 0 8px;font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:{{ brand.primary }};font-family:{{ brand.font_stack }};">{{ label }}</p>
+{%- endmacro %}
+
+{% macro btn_primary(href, label) -%}
+<table cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;">
+  <tr>
+    <td align="center" style="background-color:{{ brand.primary }};border-radius:10px;">
+      <a href="{{ href }}" style="display:inline-block;padding:14px 28px;font-size:15px;line-height:20px;font-weight:600;color:{{ brand.button_text }};text-decoration:none;font-family:{{ brand.font_stack }};">{{ label }}</a>
+    </td>
+  </tr>
+</table>
+{%- endmacro %}
+
+{% macro code_panel(code, label="Your code") -%}
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 24px;">
+  <tr>
+    <td align="center" style="background-color:{{ brand.background }};border:1px dashed {{ brand.accent }};border-radius:12px;padding:24px 20px;">
+      <p style="margin:0 0 8px;font-size:12px;line-height:16px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:{{ brand.muted }};font-family:{{ brand.font_stack }};">{{ label }}</p>
+      <p style="margin:0;font-size:36px;line-height:44px;font-weight:700;letter-spacing:10px;color:{{ brand.primary }};font-family:{{ brand.font_stack }};">{{ code }}</p>
+    </td>
+  </tr>
+</table>
+{%- endmacro %}
+
+{% macro meta_panel() -%}
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 24px;background-color:{{ brand.background }};border-radius:10px;overflow:hidden;">
+  <tr>
+    <td width="4" style="background-color:{{ brand.accent }};font-size:0;line-height:0;">&nbsp;</td>
+    <td style="padding:16px 20px;">
+      {{ caller() }}
+    </td>
+  </tr>
+</table>
+{%- endmacro %}

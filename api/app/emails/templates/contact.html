@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "macros.html" as ui with context %}
+
+{% block title %}{{ subject }}{% endblock %}
+
+{% block content %}
+{{ ui.eyebrow("Contact") }}
+<p style="margin:0 0 20px;font-size:22px;line-height:30px;font-weight:700;color:{{ brand.text }};font-family:{{ brand.font_stack }};">New contact form submission</p>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 20px;border-collapse:collapse;">
+  <tr>
+    <td style="padding:8px 0;font-size:13px;font-weight:600;color:{{ brand.muted }};width:88px;vertical-align:top;font-family:{{ brand.font_stack }};">Name</td>
+    <td style="padding:8px 0;font-size:14px;color:{{ brand.text }};font-family:{{ brand.font_stack }};">{{ name }}</td>
+  </tr>
+  <tr>
+    <td style="padding:8px 0;font-size:13px;font-weight:600;color:{{ brand.muted }};width:88px;vertical-align:top;font-family:{{ brand.font_stack }};">Email</td>
+    <td style="padding:8px 0;font-size:14px;color:{{ brand.text }};font-family:{{ brand.font_stack }};"><a href="mailto:{{ email }}" style="color:{{ brand.primary }};text-decoration:none;">{{ email }}</a></td>
+  </tr>
+  <tr>
+    <td style="padding:8px 0;font-size:13px;font-weight:600;color:{{ brand.muted }};width:88px;vertical-align:top;font-family:{{ brand.font_stack }};">Topic</td>
+    <td style="padding:8px 0;font-size:14px;color:{{ brand.text }};text-transform:capitalize;font-family:{{ brand.font_stack }};">{{ topic or "General" }}</td>
+  </tr>
+</table>
+
+<p style="margin:0 0 8px;font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:{{ brand.muted }};font-family:{{ brand.font_stack }};">Message</p>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 0 8px;">
+  <tr>
+    <td style="padding:16px 18px;background-color:{{ brand.background }};border-radius:10px;border:1px solid {{ brand.border }};font-size:14px;line-height:22px;color:{{ brand.text }};font-family:{{ brand.font_stack }};white-space:pre-wrap;">{{ message }}</td>
+  </tr>
+</table>
+{% endblock %}

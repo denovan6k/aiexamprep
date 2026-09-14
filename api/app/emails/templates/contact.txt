@@ -1,0 +1,11 @@
+New contact form submission
+Subject: {{ subject }}
+
+Name: {{ name }}
+Email: {{ email }}
+Topic: {{ topic or "General" }}
+
+Message:
+{{ message }}
+
+— {{ brand.name }}

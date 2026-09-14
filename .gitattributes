@@ -1,0 +1,2 @@
+# Shell entrypoints must retain Unix line endings for Linux containers.
+*.sh text eol=lf

@@ -1,0 +1,38 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+.venv-codex/
+.uv-cache/
+*.egg-info/
+api/build/
+
+# Node
+node_modules/
+.pnpm-store/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
+# Local data
+*.sqlite
+uploads/
+
+# Internal planning notes (root only — do not ignore documentation/docs)
+/docs/
+LOCAL_OPERATIONS.md
+
+# Docusaurus (also covered by documentation/.gitignore)
+documentation/.docusaurus/
+documentation/build/

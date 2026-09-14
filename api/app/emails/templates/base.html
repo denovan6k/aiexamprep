@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ brand.name }}{% endblock %}</title>
+</head>
+<body style="margin:0;padding:0;background-color:{{ brand.background }};font-family:{{ brand.font_stack }};">
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:{{ brand.background }};">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;background-color:{{ brand.surface }};border-radius:14px;overflow:hidden;border:1px solid {{ brand.border }};">
+          <tr>
+            <td style="padding:28px 32px 20px;">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td width="36" valign="middle" style="padding-right:12px;">
+                    {{ logo_svg | safe }}
+                  </td>
+                  <td valign="middle">
+                    <p style="margin:0;font-size:18px;line-height:24px;font-weight:700;color:{{ brand.primary }};font-family:{{ brand.font_stack }};">{{ brand.name }}</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0 32px;">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td style="height:3px;background-color:{{ brand.accent }};font-size:0;line-height:0;border-radius:2px;">&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:28px 32px 8px;">
+              {% block content %}{% endblock %}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:16px 32px 32px;">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td style="border-top:1px solid {{ brand.border }};padding-top:20px;">
+                    <p style="margin:0;font-size:12px;line-height:18px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};">
+                      &copy; {{ year }} {{ brand.name }}. All rights reserved.
+                    </p>
+                    <p style="margin:8px 0 0;font-size:12px;line-height:18px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};">
+                      <a href="{{ app_url }}" style="color:{{ brand.primary }};text-decoration:none;">Open Knorvex</a>
+                      &nbsp;&middot;&nbsp;
+                      <a href="mailto:{{ support_email }}" style="color:{{ brand.primary }};text-decoration:none;">{{ support_email }}</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

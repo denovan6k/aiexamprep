@@ -1,0 +1,16 @@
+Hi{% if recipient_name %} {{ recipient_name }}{% endif %},
+
+We detected a new sign-in to your {{ brand.name }} account.
+
+Time: {{ login_time }}
+{% if ip_address %}IP address: {{ ip_address }}
+{% endif %}{% if location %}Location: {{ location }}
+{% endif %}{% if device %}Device: {{ device }}
+{% endif %}
+If this was you, no action is needed.
+
+If you don't recognize this activity, reset your password immediately ({{ app_url }}/reset-password) and contact support.
+
+— {{ brand.name }}
+Open Knorvex: {{ app_url }}
+Questions? {{ support_email }}

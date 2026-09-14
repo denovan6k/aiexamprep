@@ -1,0 +1,18 @@
+{% from "macros.jinja" import untrusted_block %}
+{% if history_text %}
+{{ untrusted_block('recent_conversation', history_text) }}
+
+{% endif %}
+{% if materials_unavailable %}
+Note: This chat already has indexed study materials, but their excerpts could not be retrieved right now. Do not ask the student to re-upload or provide material; answer from the conversation or explain that you are temporarily unable to read the material excerpts.
+
+{% endif %}
+{% if attachment_context %}
+{{ untrusted_block('attached_media', attachment_context) }}
+
+{% endif %}
+{% if material_excerpts %}
+{{ untrusted_block('material', material_excerpts) }}
+
+{% endif %}
+{{ untrusted_block('user_message', student_message) }}

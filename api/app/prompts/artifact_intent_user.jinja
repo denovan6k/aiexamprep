@@ -1,0 +1,18 @@
+{% from "macros.jinja" import untrusted_block %}
+{% if history_lines %}
+Recent conversation (untrusted data):
+{% for item in history_lines %}
+{{ untrusted_block('history_turn', item) }}
+{% endfor %}
+
+{% endif %}
+{% if last_assistant_event %}
+Last assistant event: {{ last_assistant_event }}
+{% if last_artifact_type %}Last artifact type attempted: {{ last_artifact_type }}{% endif %}
+
+{% endif %}
+{{ untrusted_block('user_message', student_message) }}
+
+Attachments this turn: {{ attachments_this_turn }}
+Thread already has materials: {{ thread_has_materials }}
+Generation settings: {{ generation_settings_json }}

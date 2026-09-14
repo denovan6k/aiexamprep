@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "macros.html" as ui with context %}
+
+{% block title %}{{ subject }}{% endblock %}
+
+{% block content %}
+{{ ui.eyebrow("Welcome") }}
+<p style="margin:0 0 8px;font-size:22px;line-height:30px;font-weight:700;color:{{ brand.text }};font-family:{{ brand.font_stack }};">Hi {{ recipient_name }},</p>
+<p style="margin:0 0 20px;font-size:15px;line-height:22px;color:{{ brand.text }};font-family:{{ brand.font_stack }};">Welcome to {{ brand.name }}. Your account is ready — turn the notes you already have into practice that moves you forward.</p>
+{{ ui.btn_primary(verify_url, "Verify your email") }}
+<p style="margin:0 0 8px;font-size:13px;line-height:18px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:{{ brand.muted }};font-family:{{ brand.font_stack }};">Next steps</p>
+<p style="margin:0 0 6px;font-size:14px;line-height:22px;color:{{ brand.text }};font-family:{{ brand.font_stack }};">1. Upload lecture notes or past papers</p>
+<p style="margin:0 0 6px;font-size:14px;line-height:22px;color:{{ brand.text }};font-family:{{ brand.font_stack }};">2. Pick a Professor Agent for exam tone</p>
+<p style="margin:0 0 20px;font-size:14px;line-height:22px;color:{{ brand.text }};font-family:{{ brand.font_stack }};">3. Generate quizzes and flashcards from your material</p>
+<p style="margin:0 0 8px;font-size:14px;line-height:20px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};">You can also verify later from account settings. We're glad you're here.</p>
+{% endblock %}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="Knorvex">
+  <rect width="32" height="32" rx="7" fill="#4B3D8F"/>
+  <path d="M10.5 9v14M10.5 16L16.5 9M10.5 16l9 8" stroke="#E8FFF5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="23" cy="9" r="2" fill="#7EE8D8"/>
+</svg>

@@ -1,0 +1,130 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: knorvex-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-knorvex}
+      POSTGRES_USER: ${POSTGRES_USER:-knorvex}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - knorvex_postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-knorvex} -d ${POSTGRES_DB:-knorvex}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: knorvex-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - knorvex_redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer:4
+    container_name: knorvex-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: knorvex-worker
+    restart: unless-stopped
+    command: ["arq", "app.workers.settings.WorkerSettings"]
+    env_file:
+      - .env
+      - api/.env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-knorvex}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-knorvex}
+      REDIS_URL: ${REDIS_URL_DOCKER:-redis://redis:6379/0}
+      PYTHONPATH: /app
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_DEFAULT_MODEL: ${OPENAI_DEFAULT_MODEL:-}
+      GEMINI_DEFAULT_MODEL: ${GEMINI_DEFAULT_MODEL:-}
+      ANTHROPIC_DEFAULT_MODEL: ${ANTHROPIC_DEFAULT_MODEL:-}
+      OPENROUTER_DEFAULT_MODEL: ${OPENROUTER_DEFAULT_MODEL:-}
+      DEFAULT_OPENROUTER_MODEL: ${DEFAULT_OPENROUTER_MODEL:-}
+      DEFAULT_PLATFORM_PROVIDER: ${DEFAULT_PLATFORM_PROVIDER:-}
+      PLATFORM_PROVIDER_PRIORITY: ${PLATFORM_PROVIDER_PRIORITY:-gemini,openai,anthropic,openrouter}
+      OPENROUTER_MODEL_FILTER: ${OPENROUTER_MODEL_FILTER:-all}
+      OPENROUTER_PROVIDER_IGNORE: ${OPENROUTER_PROVIDER_IGNORE:-}
+      OPENROUTER_SERVICE_TIER: ${OPENROUTER_SERVICE_TIER:-}
+      OPENROUTER_CACHE_ENABLED: ${OPENROUTER_CACHE_ENABLED:-true}
+      HEADROOM_ENABLED: ${HEADROOM_ENABLED:-false}
+      HEADROOM_COMPRESS_CHAT: ${HEADROOM_COMPRESS_CHAT:-true}
+      HEADROOM_COMPRESS_GENERATION: ${HEADROOM_COMPRESS_GENERATION:-true}
+      HEADROOM_COMPRESS_MCP_TOOLS: ${HEADROOM_COMPRESS_MCP_TOOLS:-true}
+      HEADROOM_COMPRESS_ATTACHMENTS: ${HEADROOM_COMPRESS_ATTACHMENTS:-false}
+      HEADROOM_EXTRA: ${HEADROOM_EXTRA:-core}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./api/app:/app/app
+      - ./api/migrations:/app/migrations
+      - ./api/uploads:/app/uploads
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./api/app/workers
+          target: /app/app/workers
+        - action: sync+restart
+          path: ./api/app/services/jobs.py
+          target: /app/app/services/jobs.py
+        - action: sync+restart
+          path: ./api/app/services/generation.py
+          target: /app/app/services/generation.py
+        - action: sync+restart
+          path: ./api/app/services/llm.py
+          target: /app/app/services/llm.py
+        - action: sync+restart
+          path: ./api/app/services/llm_providers.py
+          target: /app/app/services/llm_providers.py
+        - action: sync+restart
+          path: ./api/app/services/worker_readiness.py
+          target: /app/app/services/worker_readiness.py
+        - action: sync+restart
+          path: ./api/app/services/materials.py
+          target: /app/app/services/materials.py
+        - action: sync+restart
+          path: ./api/app/models
+          target: /app/app/models
+        - action: sync+restart
+          path: ./api/app/services/chat.py
+          target: /app/app/services/chat.py
+        - action: sync+restart
+          path: ./api/app/services/chat_projects.py
+          target: /app/app/services/chat_projects.py
+        - action: sync+restart
+          path: ./api/app/services/generation_profiles.py
+          target: /app/app/services/generation_profiles.py
+
+volumes:
+  knorvex_postgres_data:
+  knorvex_redis_data:

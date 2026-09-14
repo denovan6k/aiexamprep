@@ -1,0 +1,8 @@
+{# Shared macros for LLM prompt templates. Untrusted content must use these fences. #}
+
+{% macro untrusted_block(label, body) -%}
+{%- set tag = label | lower | replace(' ', '_') -%}
+<untrusted_{{ tag }}>
+{{ body | sanitize_untrusted }}
+</untrusted_{{ tag }}>
+{%- endmacro %}

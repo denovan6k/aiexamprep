@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "macros.html" as ui with context %}
+
+{% block title %}{{ subject }}{% endblock %}
+
+{% block content %}
+{{ ui.eyebrow("Security") }}
+<p style="margin:0 0 8px;font-size:22px;line-height:30px;font-weight:700;color:{{ brand.text }};font-family:{{ brand.font_stack }};">Hi{% if recipient_name %} {{ recipient_name }}{% endif %},</p>
+<p style="margin:0 0 20px;font-size:15px;line-height:22px;color:{{ brand.text }};font-family:{{ brand.font_stack }};">We detected a new sign-in to your {{ brand.name }} account.</p>
+{% call ui.meta_panel() %}
+<p style="margin:0 0 8px;font-size:13px;line-height:18px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};"><strong style="color:{{ brand.text }};">Time:</strong> {{ login_time }}</p>
+{% if ip_address %}
+<p style="margin:0 0 8px;font-size:13px;line-height:18px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};"><strong style="color:{{ brand.text }};">IP address:</strong> {{ ip_address }}</p>
+{% endif %}
+{% if location %}
+<p style="margin:0 0 8px;font-size:13px;line-height:18px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};"><strong style="color:{{ brand.text }};">Location:</strong> {{ location }}</p>
+{% endif %}
+{% if device %}
+<p style="margin:0;font-size:13px;line-height:18px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};"><strong style="color:{{ brand.text }};">Device:</strong> {{ device }}</p>
+{% endif %}
+{% endcall %}
+<p style="margin:0 0 8px;font-size:14px;line-height:20px;color:{{ brand.muted }};font-family:{{ brand.font_stack }};">If this was you, no action is needed.</p>
+<p style="margin:0 0 8px;font-size:14px;line-height:20px;color:{{ brand.text }};font-family:{{ brand.font_stack }};">If you don't recognize this activity, <a href="{{ app_url }}/reset-password" style="color:{{ brand.danger }};text-decoration:underline;">reset your password</a> immediately and contact support.</p>
+{% endblock %}
