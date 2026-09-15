@@ -40,7 +40,7 @@ infra/           Local infrastructure setup
    **`api/.env`**
 
    ```env
-   DATABASE_URL=postgresql+psycopg://USER:PASSWORD@HOST:PORT/DATABASE
+   DATABASE_URL=
    REDIS_URL=
    AUTH_SECRET=
    OPENROUTER_API_KEY=
