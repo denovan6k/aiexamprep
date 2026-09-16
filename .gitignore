@@ -36,3 +36,14 @@ LOCAL_OPERATIONS.md
 # Docusaurus (also covered by documentation/.gitignore)
 documentation/.docusaurus/
 documentation/build/
+
+# Cursor
+.cursor/
+
+
+# Kiro
+.kiro/
+
+# AI agents / assistants (general)
+.agents/
+   
